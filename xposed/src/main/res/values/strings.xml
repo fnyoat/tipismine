@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TipIsMine</string>
+    <string-array name="xposed_scope">
+        <item>com.android.systemui</item>
+    </string-array>
+
+    <!-- 通用 -->
+    <string name="close">关闭</string>
+    <string name="cancel">取消</string>
+    <string name="save">保存</string>
+    <string name="menu_settings">设置</string>
+    <string name="menu_target_resources">目标资源列表</string>
+    <string name="save_failed">保存失败：%1$s</string>
+
+    <!-- 主配置页 -->
+    <string name="config_main_subtitle">自定义 SystemUI 的“已通过 VPN 连接到互联网”归属提示</string>
+    <string name="banner_active">● 模块已激活</string>
+    <string name="banner_inactive">● 模块未激活</string>
+    <string name="enabled_switch">功能生效</string>
+    <string name="preview_section">实时预览（随配置 / 设备状态自动更新）</string>
+    <string name="preview_line">预览：\n%1$s</string>
+    <string name="preview_disabled">（功能已关闭，提示为系统原值）</string>
+    <string name="preview_default">（未干预，显示系统默认文案）</string>
+    <string name="preview_error">（预览出错：%1$s）</string>
+    <string name="scheme_section">编辑方案</string>
+    <string name="scheme_field_tab">修改字段</string>
+    <string name="scheme_whole_tab">全部修改</string>
+    <string name="owner_section">Owner 归属方</string>
+    <string name="owner_title">Owner 名称</string>
+    <string name="owner_example">例：此设备归 我 所有</string>
+    <string name="vpn_title">VPN 名称</string>
+    <string name="vpn_example">例：此设备已通过 同轴电缆 连接到互联网</string>
+    <string name="whole_section">整句文案</string>
+    <string name="whole_hint">输入要替换的整句文案（支持多行）</string>
+    <string name="whole_example">例：喵喵喵，喵喵？</string>
+    <string name="input_hint">输入%1$s</string>
+    <string name="mode_default">默认</string>
+    <string name="mode_show">显示</string>
+    <string name="mode_hide">隐藏</string>
+    <string name="apply">应用</string>
+    <string name="applied">已应用</string>
+    <string name="unsaved_changes">有未应用的更改</string>
+    <string name="unsaved_back">有未应用的更改，点“应用”才会保存</string>
+
+    <!-- 设置页 -->
+    <string name="lock_section">锁屏</string>
+    <string name="separate_lock_title">分离修改控制中心与锁屏</string>
+    <string name="separate_lock_sub">开启后锁屏用独立配置，关闭时共用当前配置；点击条目进入锁屏专属配置页。重启 SystemUI 后生效</string>
+    <string name="lock_settings_title">锁屏提示设置</string>
+    <string name="lock_settings_sub">请先开启“分离修改控制中心与锁屏”</string>
+    <string name="mode_follow_main">跟随主页</string>
+
+    <string name="expressions_section">表达式</string>
+    <string name="expressions_toggle_title">表达式注入</string>
+    <string name="expressions_toggle_sub">关闭时文案中的 ${...} 不求值，原文直出（不注入 SystemUI）。重启 SystemUI 后生效</string>
+    <string name="set_network_section">更新与联网</string>
+    <string name="speed_title">更新速度</string>
+    <string name="speed_dialog">更新速度（秒）</string>
+    <string name="speed_sub">提示与预览的刷新间隔（0.1~300 秒）</string>
+    <string name="api_toggle_title">暴露 API</string>
+    <string name="api_toggle_sub">通过 HTTP 修改配置</string>
+    <string name="api_off">关闭</string>
+    <string name="api_on">开启</string>
+    <string name="port_title">端口</string>
+    <string name="port_sub">HTTP 服务端口</string>
+    <string name="bind_ip_title">绑定 IP</string>
+    <string name="bind_ip_sub">0.0.0.0=所有接口 / 127.0.0.1=仅本机</string>
+    <string name="scheme_title">协议</string>
+    <string name="scheme_sub">https 用内置自签名证书</string>
+    <string name="api_key_title">API Key</string>
+    <string name="api_key_sub">请求头 Authorization: Bearer &lt;key&gt;</string>
+    <string name="syntax_section">语法</string>
+    <string name="expr_help_title">表达式与函数</string>
+    <string name="expr_help_sub">查看支持的 ${} 语法</string>
+    <string name="expr_help_dialog_title">支持的表达式与函数</string>
+    <string name="expr_help_dialog" formatted="false">在文案中嵌入 ${...} 即可动态求值。修改后系统提示按“更新速度”自动刷新。需先在设置中开启“表达式注入”，否则 ${...} 原文直出、不会注入。
+
+【变量】
+  ${battery}   电池电量（如 87）
+  ${charging}  是否充电（true/false）
+  ${wifi}      当前 WiFi 名称
+  ${bt}        蓝牙设备名
+  ${time}      当前时间（HH:mm）
+  ${date}      当前日期（yyyy-MM-dd）
+
+【网络函数】
+  ${get(url)}         HTTP GET，返回响应体
+  ${post(url, json)}  HTTP POST，返回响应体
+
+【运算符】
+  == != &gt; &gt;= &lt; &lt;=   比较，返回 true/false（null 可作操作数，空串与 null 视为相等）
+  &amp;&amp; || !          逻辑与 / 或 / 非
+  +                数字相加；否则字符串拼接
+  ( )              括号，任意嵌套组合
+
+【三元（可嵌套）】
+  ${cond ? "a" : "b"}         成立取 a，否则 b
+  ${owner == null ? "无" : owner == "公司A" ? "总部" : owner}
+
+【示例】
+  此设备归 ${battery}% 电量的 我 所有
+  已通过 ${post("http://x/check", "{"id":1}")} 联网
+  本设备由王管理，且已连接到 ${charging ? "电源" : "虚空"}
+  ${(battery &gt;= 80) &amp;&amp; charging ? "电量充足" : "电量不足"}</string>
+
+    <string name="about_section">关于</string>
+    <string name="details_title">详情</string>
+    <string name="details_sub">开源协议、隐私与安全声明</string>
+    <string name="restart_systemui_title">重启 SystemUI</string>
+    <string name="restart_systemui_sub">让 SystemUI 进程自杀并自动重建（触屏会闪断）</string>
+    <string name="restart_systemui_dialog_title">警告</string>
+    <string name="restart_systemui_dialog_message">将使用 hook 让 SystemUI 进程立即自杀，桌面上方 / 状态栏 / 锁屏会闪断后自动恢复。确认重启？</string>
+    <string name="restart_systemui_sent">已发送重启广播，SystemUI 即将重建</string>
+    <string name="about_dialog">本软件遵循 MPL 2.0 开源协议，永不收费。
+
+本软件不会以任何方式擅自达成以下目的：
+· 外连（比如网络、蓝牙）
+· 上传任何内容（比如日志）
+· 下载任何内容（比如恶意代码）
+· 破坏系统
+
+本软件为 Xposed，依赖 LSPosed 框架运行，在您未授权时，我们没有能力修改系统，另外请知悉本软件具有些微危险性。</string>
+    <string name="feedback_title">反馈</string>
+    <string name="feedback_sub">反馈前请先阅读</string>
+    <string name="feedback_dialog">更提倡反馈无法自动扫描获取资源的情形。
+
+反馈请附带：
+· 系统信息
+· SystemUI apk</string>
+
+    <!-- 目标资源列表页 -->
+    <string name="debug_warn">如果你不知道这是什么，请不要修改。</string>
+    <string name="debug_intro">这里管理“归属 + 已通过 VPN 连接到互联网”提示的资源名。内置名单随模块发布；你可以在下方补充你这台机子上检测到但名单里没有的资源名。</string>
+    <string name="scan_section">内容自适应检测</string>
+    <string name="scan_switch">实时内容扫描</string>
+    <string name="scan_explain">开启：当“归属 + VPN 连接”提示在你设备上显示时，按文案特征自动识别改了资源名的新 key——一旦命中立刻改写，并自动填入下方自定义名单。默认在资源未命中时自动开启；命中后会随即自动关闭。</string>
+    <string name="scan_result_section">扫描结果</string>
+    <string name="scan_result_empty">（还没有捕获到新资源名。打开扫描后让“归属 + VPN 连接”提示显示一次即可）</string>
+    <string name="scan_auto_off_note">扫描命中会自动关闭扫描；若仍有未命中的新 key，可再次打开扫描重新捕获。</string>
+    <string name="custom_keys_section">自定义资源名名单</string>
+    <string name="custom_keys_note">名单里每项都在 hook 命中时直接生效。你从日志里看到“detected disclosure key”提示的资源名，可添加到这里长期生效。</string>
+    <string name="custom_keys_hint">每行一个资源名，例如：
+quick_settings_disclosure_named_management_named_vpn
+逗号或换行分隔均可</string>
+    <string name="save_keys">保存自定义名单</string>
+    <string name="saved">已保存</string>
+    <string name="scan_captured">已捕获新资源名并填入自定义名单</string>
+    <string name="device_info_section">设备 / SystemUI 信息</string>
+    <string name="info_system">系统</string>
+    <string name="info_sysui_version">SystemUI 版本</string>
+    <string name="info_sysui_apk">SystemUI APK</string>
+    <string name="info_apk_hash">APK 短 hash</string>
+    <string name="not_found">（未找到）</string>
+    <string name="cannot_read">（无法读取）</string>
+    <string name="computing">计算中…</string>
+    <string name="compute_failed">计算失败</string>
+    <string name="long_press_copy">（长按1秒复制）</string>
+    <string name="copied">已复制到剪贴板</string>
+    <string name="info_row">%1$s：%2$s</string>
+    <string name="builtin_section">内置资源名（随模块发布，只读）</string>
+    <string name="builtin_sub">金色加粗 = 本机可用（存在该资源，直接生效），灰色 = 本机没有，已剔除不再尝试。分组为各来源系统的资源命名惯例，仅作维护参考。</string>
+    <string name="builtin_note">各系统分组仅为资源命名来源的维护参考，不代表本机系统类型。更提倡反馈无法自动扫描获取资源的情形，反馈请附带系统信息和 SystemUI apk。</string>
+    <string name="resource_miss">⚠ 资源未命中：无法修改归属提示 · 无法修改VPN显示</string>
+    <string name="resource_ok">✓ 资源与功能正常</string>
+    <string name="debug_label">调试</string>
+    <string name="debug_switch_note">关闭调试后：内容扫描关闭、自定义名单清空、资源名配置固化为仅内置名单。</string>
+</resources>

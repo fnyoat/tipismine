@@ -1,0 +1,72 @@
+name: Build & Release
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.4.1'
+
+      # Signing secrets are injected via Actions secrets.
+      # No plaintext keystore or passwords are stored in the repo.
+      - name: Provide signing config
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_B64" ]; then
+            echo "No signing secrets configured — building debug/unsigned."
+            exit 0
+          fi
+          mkdir -p keystore
+          echo "$KEYSTORE_B64" | base64 -d > keystore/tipismine.jks
+          # Generated at CI time, not committed. Gradle reads from xposed/.
+          cat > xposed/signing.properties <<EOF
+          storeFile=../keystore/tipismine.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+
+      - name: Build APKs (debug + release)
+        run: gradle assembleLegacyDebug assembleModernDebug assembleLegacyRelease assembleModernRelease --no-daemon
+
+      - name: Package APKs into a single zip
+        run: |
+          mkdir -p dist
+          cp xposed/build/outputs/apk/legacy/debug/*.apk dist/tipismine-legacy-debug.apk
+          cp xposed/build/outputs/apk/legacy/release/*.apk dist/tipismine-legacy-release.apk
+          cp xposed/build/outputs/apk/modern/debug/*.apk dist/tipismine-modern-debug.apk
+          cp xposed/build/outputs/apk/modern/release/*.apk dist/tipismine-modern-release.apk
+          cd dist && zip -q tipismine-apks.zip *.apk
+
+      - name: Upload APK bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: tipismine-apks
+          path: dist/tipismine-apks.zip

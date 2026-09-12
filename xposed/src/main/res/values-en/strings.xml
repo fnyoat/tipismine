@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TipIsMine</string>
+
+    <!-- 通用 -->
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_target_resources">Target resources</string>
+    <string name="save_failed">Save failed: %1$s</string>
+
+    <!-- 主配置页 -->
+    <string name="config_main_subtitle">Customize the SystemUI "Connected to VPN" ownership prompt</string>
+    <string name="banner_active">● Module active</string>
+    <string name="banner_inactive">● Module inactive</string>
+    <string name="enabled_switch">Enable</string>
+    <string name="preview_section">Live preview (auto-refreshes with config / device state)</string>
+    <string name="preview_line">Preview:\n%1$s</string>
+    <string name="preview_disabled">(Disabled — showing the system default prompt)</string>
+    <string name="preview_default">(No intervention — showing the system default text)</string>
+    <string name="preview_error">(Preview error: %1$s)</string>
+    <string name="scheme_section">Editing mode</string>
+    <string name="scheme_field_tab">Modify fields</string>
+    <string name="scheme_whole_tab">Replace whole text</string>
+    <string name="owner_section">Owner party</string>
+    <string name="owner_title">Owner name</string>
+    <string name="owner_example">e.g. This device belongs to me</string>
+    <string name="vpn_title">VPN name</string>
+    <string name="vpn_example">e.g. This device is connected via Cocoon VPN</string>
+    <string name="whole_section">Whole sentence</string>
+    <string name="whole_hint">Enter the text to replace with (multi-line supported)</string>
+    <string name="whole_example">e.g. Meow meow, meow?</string>
+    <string name="input_hint">Enter %1$s</string>
+    <string name="mode_default">Default</string>
+    <string name="mode_show">Show</string>
+    <string name="mode_hide">Hide</string>
+    <string name="apply">Apply</string>
+    <string name="applied">Applied</string>
+    <string name="unsaved_changes">You have unsaved changes</string>
+    <string name="unsaved_back">You have unsaved changes — tap "Apply" to save</string>
+
+    <!-- 设置页 -->
+    <string name="lock_section">Lock screen</string>
+    <string name="separate_lock_title">Separate control center &amp; lock screen</string>
+    <string name="separate_lock_sub">On: lock screen uses its own config. Off: both share the current config. Tap the row to open the lock-screen config page. Takes effect after a SystemUI restart</string>
+    <string name="lock_settings_title">Lock screen prompt settings</string>
+    <string name="lock_settings_sub">Turn on "Separate control center &amp; lock screen" first</string>
+    <string name="mode_follow_main">Follow home</string>
+
+    <string name="expressions_section">Expressions</string>
+    <string name="expressions_toggle_title">Expression injection</string>
+    <string name="expressions_toggle_sub">When off, ${...} in text is NOT evaluated and is passed through as-is (never injected into SystemUI). Takes effect after a SystemUI restart</string>
+    <string name="set_network_section">Updates &amp; network</string>
+    <string name="speed_title">Refresh interval</string>
+    <string name="speed_dialog">Refresh interval (seconds)</string>
+    <string name="speed_sub">Prompt &amp; preview refresh interval (0.1~300 s)</string>
+    <string name="api_toggle_title">Expose API</string>
+    <string name="api_toggle_sub">Modify config over HTTP</string>
+    <string name="api_off">Off</string>
+    <string name="api_on">On</string>
+    <string name="port_title">Port</string>
+    <string name="port_sub">HTTP service port</string>
+    <string name="bind_ip_title">Bind IP</string>
+    <string name="bind_ip_sub">0.0.0.0=all interfaces / 127.0.0.1=this device only</string>
+    <string name="scheme_title">Scheme</string>
+    <string name="scheme_sub">https uses a bundled self-signed certificate</string>
+    <string name="api_key_title">API Key</string>
+    <string name="api_key_sub">Header: Authorization: Bearer &lt;key&gt;</string>
+    <string name="syntax_section">Syntax</string>
+    <string name="expr_help_title">Expressions &amp; functions</string>
+    <string name="expr_help_sub">See supported ${} syntax</string>
+    <string name="expr_help_dialog_title">Supported expressions &amp; functions</string>
+    <string name="expr_help_dialog" formatted="false">Embed ${...} in the text to evaluate it dynamically. The prompt then refreshes per the "Refresh interval". You must first turn on "Expression injection" in Settings, otherwise ${...} is passed through verbatim and never injected.
+
+【Variables】
+  ${battery}   battery level (e.g. 87)
+  ${charging}  charging state (true/false)
+  ${wifi}      current WiFi name
+  ${bt}        Bluetooth device name
+  ${time}      current time (HH:mm)
+  ${date}      current date (yyyy-MM-dd)
+
+【Network functions】
+  ${get(url)}         HTTP GET, returns the response body
+  ${post(url, json)}  HTTP POST, returns the response body
+
+【Operators】
+  == != &gt; &gt;= &lt; &lt;=    comparison, returns true/false (null allowed; empty string equals null)
+  &amp;&amp; || !          logical AND / OR / NOT
+  +               numeric addition; otherwise string concatenation
+  ( )             parentheses, arbitarily nestable
+
+【Ternary (nestable)】
+  ${cond ? "a" : "b"}   a if cond holds, otherwise b
+  ${owner == null ? "none" : owner == "CompanyA" ? "HQ" : owner}
+
+【Examples】
+  This device (${battery}% battery) belongs to me
+  Verified via ${post("http://x/check", "{"id":1}")}
+  This device is managed by Wang and is connected to ${charging ? "power" : "void"}
+  ${(battery &gt;= 80) &amp;&amp; charging ? "Plenty of battery" : "Low battery"}</string>
+
+    <string name="about_section">About</string>
+    <string name="details_title">Details</string>
+    <string name="details_sub">License, privacy &amp; security statement</string>
+    <string name="about_dialog">This software is licensed under MPL 2.0 and will never charge a fee.
+
+By no means will this software on its own:
+· connect outward (e.g. network, Bluetooth)
+· upload anything (e.g. logs)
+· download anything (e.g. malicious code)
+· harm the system
+
+This software is an Xposed module that runs on the LSPosed framework. Without your authorization we cannot modify the system. Please also note that this software carries a small degree of risk.</string>
+    <string name="feedback_title">Feedback</string>
+    <string name="feedback_sub">Please read before sending feedback</string>
+    <string name="feedback_dialog">We especially welcome feedback about resources that cannot be captured by auto-scan.
+
+Please attach:
+· System information
+· SystemUI apk</string>
+
+    <!-- 目标资源列表页 -->
+    <string name="debug_warn">If you don\'t know what this is, don\'t change it.</string>
+    <string name="debug_intro">Manage the resource names of the "ownership + Connected to VPN" prompt. The built-in list ships with the module; you can add resource names detected on your device but missing from the list below.</string>
+    <string name="scan_section">Content adaptive detection</string>
+    <string name="scan_switch">Real-time content scan</string>
+    <string name="scan_explain">On: when the "ownership + VPN" prompt appears on your device, it auto-detects new keys with renamed resources by matching the text. On a hit it rewrites immediately and auto-fills the custom list below. It auto-enables when resources are miss, and auto-disables after a hit.</string>
+    <string name="scan_result_section">Scan results</string>
+    <string name="scan_result_empty">(No new resource names captured yet. Turn on the scan and let the "ownership + VPN" prompt show once.)</string>
+    <string name="scan_auto_off_note">A scan hit auto-disables the scan; if new keys remain unmatched, turn the scan on again to recapture.</string>
+    <string name="custom_keys_section">Custom resource name list</string>
+    <string name="custom_keys_note">Every entry takes effect directly on a hook hit. Resource names you see in logs as "detected disclosure key" can be added here to take effect long-term.</string>
+    <string name="custom_keys_hint">One resource name per line, e.g.:
+quick_settings_disclosure_named_management_named_vpn
+Comma or newline separated</string>
+    <string name="save_keys">Save custom list</string>
+    <string name="saved">Saved</string>
+    <string name="scan_captured">Captured a new resource name and added it to the custom list</string>
+    <string name="device_info_section">Device / SystemUI info</string>
+    <string name="info_system">System</string>
+    <string name="info_sysui_version">SystemUI version</string>
+    <string name="info_sysui_apk">SystemUI APK</string>
+    <string name="info_apk_hash">APK short hash</string>
+    <string name="not_found">(not found)</string>
+    <string name="cannot_read">(cannot read)</string>
+    <string name="computing">computing…</string>
+    <string name="compute_failed">compute failed</string>
+    <string name="long_press_copy">(long-press 1s to copy)</string>
+    <string name="copied">Copied to clipboard</string>
+    <string name="info_row">%1$s: %2$s</string>
+    <string name="builtin_section">Built-in resource names (shipped, read-only)</string>
+    <string name="builtin_sub">Gold bold = available on this device (exists, active); grey = absent, already pruned. Groups reflect each system\'s naming convention, for maintenance reference only.</string>
+    <string name="builtin_note">Groups are only a maintenance reference for the naming source, not your system type. We especially welcome feedback about resources that cannot be captured by auto-scan; please attach system info and the SystemUI apk.</string>
+    <string name="resource_miss">⚠ Resource miss: cannot modify ownership prompt · cannot modify VPN display</string>
+    <string name="resource_ok">✓ Resources &amp; features OK</string>
+    <string name="debug_label">Debug</string>
+    <string name="debug_switch_note">With Debug off: content scan off, custom list cleared, resource config frozen to the built-in list only.</string>
+</resources>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 48 48">
+  <!-- 浅灰背景 -->
+  <rect width="48" height="48" fill="#F3F4F6"/>
+  <!-- 钥匙圆环 -->
+  <path fill="#1B1B1B" fill-rule="evenodd"
+    d="M8,17 a6,6 0 1,0 12,0 a6,6 0 1,0 -12,0 z
+M11.5,17 a2.5,2.5 0 1,0 5,0 a2.5,2.5 0 1,0 -5,0 z"/>
+  <!-- 钥匙杆 -->
+  <path fill="#1B1B1B" d="M15,14.5 h13.5 v5 h-13.5 z"/>
+  <!-- 钥匙齿 -->
+  <path fill="#1B1B1B" d="M22,19.5 h3 v4 h-3 z
+M25.5,19.5 h4 v6 h-4 z"/>
+  <!-- 右侧横条（归属提示描述） -->
+  <path fill="#1B1B1B" d="M32,16 a2,2 0 0 1 2,-2 h9 a2,2 0 0 1 2,2 a2,2 0 0 1 -2,2 h-9 a2,2 0 0 1 -2,-2 z"/>
+</svg>

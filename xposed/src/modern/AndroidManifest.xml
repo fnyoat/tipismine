@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+        modern 风味的信息笼：
+        io.github.libxposed:service 库自带 XposedProvider 的 <provider> 声明
+        （authorities 为 <applicationId>.XposedService），无需在此重复声明。
+    -->
+</manifest>
